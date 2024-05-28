@@ -42,6 +42,8 @@ myForm.addEventListener('submit', function (event) {
     const finalPriceOutput = document.getElementById('final-price-calculation');
     finalPriceOutput.innerHTML = `€ ${finalPrice}`;
 
+    /* suddivisione prezzo in parte integer e float????? */
+
 })
 
 
