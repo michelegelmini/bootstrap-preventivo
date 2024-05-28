@@ -1,16 +1,10 @@
 'use strict'
 
-
-
-
 /* comportamento all'invio del form */
-
 const myForm = document.querySelector('form')
 
 myForm.addEventListener('submit', function (event) {
-    /* comparsa del prezzo */
     event.preventDefault();
-    document.getElementById('final-price').classList.toggle('d-none');
 
     /* assegnazione costanti fornite */
     const hoursOfWork = 10;
@@ -19,9 +13,9 @@ myForm.addEventListener('submit', function (event) {
     const projectAnalysisPrice = 33.60;
 
 
-    /* calcolo del prezzo */
+    /* calcolo del prezzo sulla base del tipo di lavoro selezionato*/
     const selectedWork = document.getElementById('form-select');
-    const promoCode = document.getElementById('promoCode');
+
     let selectedWorkPrice = 0;
 
     if (selectedWork.value === 'backendDevelopment') {
@@ -32,12 +26,27 @@ myForm.addEventListener('submit', function (event) {
         selectedWorkPrice = projectAnalysisPrice;
     }
 
-    let finalPrice = priceCalculator(selectedWorkPrice, promoCode, hoursOfWork);
+    /* invocazione della funzione */
 
+    const promoCode = document.getElementById('promoCode');
+
+    let finalPrice = priceCalculator(selectedWorkPrice, promoCode, hoursOfWork);
 
     console.log(`hai selezionato ${selectedWork.value}, il preventivo è di ${finalPrice}`);
 
+
+    /* comparsa del prezzo */
+
+    document.getElementById('final-price').classList.remove('d-none');
+
+    const finalPriceOutput = document.getElementById('final-price-calculation');
+    finalPriceOutput.innerHTML = `€ ${finalPrice}`;
+
 })
+
+
+
+/* funzione con operazioni aritmetiche e verifica dello sconto */
 
 function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
     let price = selectedWorkPrice * hoursOfWork;
