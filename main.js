@@ -17,10 +17,11 @@ myForm.addEventListener('submit', function (event) {
     const backendDevelompentPrice = 20.50;
     const frontendDevelopmentPrice = 15.30;
     const projectAnalysisPrice = 33.60;
-    const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
+
 
     /* calcolo del prezzo */
     const selectedWork = document.getElementById('form-select');
+    const promoCode = document.getElementById('promoCode');
     let selectedWorkPrice = 0;
 
     if (selectedWork.value === 'backendDevelopment') {
@@ -30,23 +31,29 @@ myForm.addEventListener('submit', function (event) {
     } else if (selectedWork.value === 'projectAnalysis') {
         selectedWorkPrice = projectAnalysisPrice;
     }
-    console.log(selectedWork.value);
-    console.log(selectedWorkPrice);
 
-    priceCalculator(selectedWorkPrice, hoursOfWork);
+    let finalPrice = priceCalculator(selectedWorkPrice, promoCode, hoursOfWork);
 
+
+    console.log(`hai selezionato ${selectedWork.value}, il preventivo è di ${finalPrice}`);
 
 })
 
-function priceCalculator(selectedWorkPrice, hoursOfWork) {
-    let finalPrice = selectedWorkPrice * hoursOfWork;
+function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
+    let price = selectedWorkPrice * hoursOfWork;
+    const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
+    let finalPrice = 0;
 
-    /* if (promoCodes.includes(promoCode)) {
-        finalPrice = finalPrice * 0, 25;
-    } */
+    if (promoCodes.includes(promoCode.value)) {
+        let discountedPrice = price - (price * 0.25);
+        console.log(discountedPrice);
+        finalPrice = discountedPrice;
+        return finalPrice
 
-    /* return finalPrice;
- */
-    console.log(finalPrice);
+    } else {
+        console.log(price);
+        finalPrice = price;
+        return finalPrice
+    }
 
 }
