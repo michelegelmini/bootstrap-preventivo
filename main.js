@@ -1,7 +1,7 @@
 'use strict'
 
 /* comportamento all'invio del form */
-const myForm = document.querySelector('.needs-validation');
+const myForm = document.querySelector('form:not(.special).needs-validation');
 
 /* let forms = document.querySelectorAll('.needs-validation') */
 
@@ -58,11 +58,9 @@ myForm.addEventListener('submit', function (event) {
 
     }
 
-    if (promoCode.value) {
-        myForm.classList.add('was-validated');
-    } else
-        myForm.classList.add('was-validated');
-    promoCode.classList.remove('was-validated');
+
+    myForm.classList.add('was-validated');
+
 
 
 }, false)
@@ -112,18 +110,20 @@ function promoCodeValidator(promoCode) {
     const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
 
     if (promoCodes.includes(promoCode.value)) {
-        promoCode.setAttribute('required', true);
+        /* promoCode.setAttribute('required', true); */
         promoCode.classList.remove('is-invalid')
         console.log('codice valido')
         return true;
-    } else if (promoCode.value === '') {
+    } else if (promoCode.value == '') {
         console.log('non hai inserito un codice')
+        /* promoCode.setAttribute('required', false); */
         promoCode.classList.remove('is-invalid')
         promoCode.classList.remove('was-validated')
         return false;
     } else
-        promoCode.setAttribute('required', true);
-    promoCode.classList.add('is-invalid')
+        /* promoCode.setAttribute('required', true); */
+        promoCode.classList.add('is-invalid')
+    promoCode.classList.remove('was-validated')
     console.log('codice NON valido')
     return false;
 
