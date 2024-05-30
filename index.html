@@ -14,7 +14,7 @@
 
     <body>
         <!-- navigator -->
-        <nav class="navbar navbar-expand-lg bg-dark mb-4">
+        <nav class="navbar navbar-expand-lg fixed-top bg-dark mb-4">
             <div class="container-fluid d-flex">
                 <a class="navbar-brand text-white" href="#">Bool Factory</a>
                 <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse"
@@ -34,7 +34,7 @@
         </nav>
         <main>
             <!-- intestazione -->
-            <div class="container-lg row px-5 mx-auto d-flex justify-content-center">
+            <div class="container-lg row px-5 py-5 my-5 mx-auto d-flex justify-content-center">
                 <div class="col-12 col-lg-8 px-5 px-lg-2">
                     <h1>Richiesta Preventivo</h1>
                     <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo</p>
@@ -90,9 +90,9 @@
                             <button type="submit" class="btn btn-primary mb-3">Calcola
                                 preventivo</button>
                             <div class="price col-12 col-md-6 text-center mb-3 d-none" id="final-price">
-                                <h4 class="">Prezzo finale</h4>
-                                <h4><strong id="final-price-integer">€ 200</strong>,<span
-                                        id="final-price-fractional">00</span></h4>
+                                <h4 class="fw-bolder fs-5">Prezzo finale</h4>
+                                <h4><strong id="final-price-integer">€ 200</strong>,<span id="final-price-fractional"
+                                        class="fw-light">00</span></h4>
                             </div>
 
                         </div>

@@ -10,7 +10,6 @@ myForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
     if (!myForm.checkValidity()) {
-        /*   event.stopPropagation() */
         document.getElementById('final-price').classList.add('d-none');
     } else if (myForm.checkValidity()) {
 
@@ -57,13 +56,8 @@ myForm.addEventListener('submit', function (event) {
         finalPriceOutputFractional.innerHTML = `${finalPriceFormatted.fractionalPart}`;
 
     }
-
-
     myForm.classList.add('was-validated');
-
-
-
-}, false)
+},)
 
 
 
@@ -76,12 +70,9 @@ function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
 
     if (promoCode) {
         let discountedPrice = price - (price * 0.25);
-        console.log(discountedPrice);
         finalPrice = discountedPrice;
         return finalPrice
-
     } else {
-        console.log(price);
         finalPrice = price;
         return finalPrice
     }
@@ -110,44 +101,17 @@ function promoCodeValidator(promoCode) {
     const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
 
     if (promoCodes.includes(promoCode.value)) {
-        /* promoCode.setAttribute('required', true); */
         promoCode.classList.remove('is-invalid')
-        console.log('codice valido')
         return true;
     } else if (promoCode.value == '') {
-        console.log('non hai inserito un codice')
-        /* promoCode.setAttribute('required', false); */
         promoCode.classList.remove('is-invalid')
         promoCode.classList.remove('was-validated')
         return false;
     } else
-        /* promoCode.setAttribute('required', true); */
         promoCode.classList.add('is-invalid')
     promoCode.classList.remove('was-validated')
-    console.log('codice NON valido')
     return false;
 
 }
 
 
-
-/* price calculator backup */
-
-// function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
-//     let price = selectedWorkPrice * hoursOfWork;
-//     const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
-//     let finalPrice = 0;
-
-//     if (promoCodes.includes(promoCode.value)) {
-//         let discountedPrice = price - (price * 0.25);
-//         console.log(discountedPrice);
-//         finalPrice = discountedPrice;
-//         return finalPrice
-
-//     } else {
-//         console.log(price);
-//         finalPrice = price;
-//         return finalPrice
-//     }
-
-// }
