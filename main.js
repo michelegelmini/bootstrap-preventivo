@@ -32,17 +32,25 @@ myForm.addEventListener('submit', function (event) {
 
     let finalPrice = priceCalculator(selectedWorkPrice, promoCode, hoursOfWork);
 
-    console.log(`hai selezionato ${selectedWork.value}, il preventivo è di ${finalPrice}`);
+    // console.log(`hai selezionato ${selectedWork.value}, il preventivo è di ${finalPrice}`);
 
+
+    /* suddivisione prezzo in parte integer e float */
+
+    const finalPriceFormatted = priceSplitter(finalPrice)
+    console.log(finalPriceFormatted.integerPart, finalPriceFormatted.fractionalPart);
 
     /* comparsa del prezzo */
 
     document.getElementById('final-price').classList.remove('d-none');
 
-    const finalPriceOutput = document.getElementById('final-price-calculation');
-    finalPriceOutput.innerHTML = `€ ${finalPrice}`;
+    const finalPriceOutputInteger = document.getElementById('final-price-integer');
+    finalPriceOutputInteger.innerHTML = `€ ${finalPriceFormatted.integerPart}`;
 
-    /* suddivisione prezzo in parte integer e float????? */
+    const finalPriceOutputFractional = document.getElementById('final-price-fractional');
+    finalPriceOutputFractional.innerHTML = `${finalPriceFormatted.fractionalPart}`;
+
+
 
 })
 
@@ -67,4 +75,19 @@ function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
         return finalPrice
     }
 
+}
+
+/* funzione per suddividere il numero decimale */
+function priceSplitter(floatNumber) {
+    const numberString = floatNumber.toString();
+    // const [integerPart, fractionalPart] = numberString.split(".");
+
+    let integerPart = numberString.split(".")[0];
+    let fractionalPart = numberString.split(".")[1];
+
+    if (fractionalPart == undefined) {
+        fractionalPart = '00';
+    }
+
+    return { integerPart, fractionalPart };
 }
