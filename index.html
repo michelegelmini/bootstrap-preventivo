@@ -62,7 +62,7 @@
                                 <option value="projectAnalysis">Analisi Progettuale</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid state.
+                                Seleziona una tipologia di lavoro.
                             </div>
                         </div>
                         <div class="mb-3">
@@ -71,7 +71,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="promoCode" class="form-label">Codice Promozionale (opzionale)</label>
-                            <input type="text" class="form-control" id="promoCode">
+                            <input type="text" class="form-control" id="promoCode" novalidate>
+                            <div class="invalid-feedback">
+                                Inserisci un codice promozionale valido.
+                            </div>
                         </div>
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
@@ -79,7 +82,7 @@
                                 Accetto la Privacy Policy
                             </label>
                             <div class="invalid-feedback">
-                                You must agree before submitting.
+                                Devi accettare la Privacy Policy.
                             </div>
                         </div>
                         <div

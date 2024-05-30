@@ -1,72 +1,72 @@
 'use strict'
 
 /* comportamento all'invio del form */
-const myForm = document.querySelector('form')
+const myForm = document.querySelector('.needs-validation');
 
-var forms = document.querySelectorAll('.needs-validation')
-
-// Loop over them and prevent submission
-Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-
-        myForm.addEventListener('submit', function (event) {
-            event.preventDefault()
-
-            if (!form.checkValidity()) {
-                event.stopPropagation()
-            }
-
-            form.classList.add('was-validated')
+/* let forms = document.querySelectorAll('.needs-validation') */
 
 
-            /* assegnazione costanti fornite */
-            const hoursOfWork = 10;
-            const backendDevelompentPrice = 20.50;
-            const frontendDevelopmentPrice = 15.30;
-            const projectAnalysisPrice = 33.60;
+myForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    if (!myForm.checkValidity()) {
+        /*   event.stopPropagation() */
+        document.getElementById('final-price').classList.add('d-none');
+    } else if (myForm.checkValidity()) {
 
 
-            /* calcolo del prezzo sulla base del tipo di lavoro selezionato*/
-            const selectedWork = document.getElementById('form-select');
-
-            let selectedWorkPrice = 0;
-
-            if (selectedWork.value === 'backendDevelopment') {
-                selectedWorkPrice = backendDevelompentPrice;
-            } else if (selectedWork.value === 'frontendDevelopment') {
-                selectedWorkPrice = frontendDevelopmentPrice;
-            } else if (selectedWork.value === 'projectAnalysis') {
-                selectedWorkPrice = projectAnalysisPrice;
-            }
-
-            /* invocazione della funzione */
-
-            const promoCode = document.getElementById('promoCode');
-
-            let finalPrice = priceCalculator(selectedWorkPrice, promoCode, hoursOfWork);
-
-            // console.log(`hai selezionato ${selectedWork.value}, il preventivo è di ${finalPrice}`);
+        /* assegnazione costanti fornite */
+        const hoursOfWork = 10;
+        const backendDevelompentPrice = 20.50;
+        const frontendDevelopmentPrice = 15.30;
+        const projectAnalysisPrice = 33.60;
 
 
-            /* suddivisione prezzo in parte integer e float */
+        /* calcolo del prezzo sulla base del tipo di lavoro selezionato*/
+        const selectedWork = document.getElementById('form-select');
 
-            const finalPriceFormatted = priceSplitter(finalPrice)
-            console.log(finalPriceFormatted.integerPart, finalPriceFormatted.fractionalPart);
+        let selectedWorkPrice = 0;
 
-            /* comparsa del prezzo */
+        if (selectedWork.value === 'backendDevelopment') {
+            selectedWorkPrice = backendDevelompentPrice;
+        } else if (selectedWork.value === 'frontendDevelopment') {
+            selectedWorkPrice = frontendDevelopmentPrice;
+        } else if (selectedWork.value === 'projectAnalysis') {
+            selectedWorkPrice = projectAnalysisPrice;
+        }
 
-            document.getElementById('final-price').classList.remove('d-none');
+        /* invocazione delle funzioni di calcolo */
 
-            const finalPriceOutputInteger = document.getElementById('final-price-integer');
-            finalPriceOutputInteger.innerHTML = `€ ${finalPriceFormatted.integerPart}`;
-
-            const finalPriceOutputFractional = document.getElementById('final-price-fractional');
-            finalPriceOutputFractional.innerHTML = `${finalPriceFormatted.fractionalPart}`;
+        const promoCode = promoCodeValidator()
+        let finalPrice = priceCalculator(selectedWorkPrice, promoCode, hoursOfWork);
 
 
+        /* suddivisione prezzo in parte integer e float */
 
-        }, false)
-    })
+        const finalPriceFormatted = priceSplitter(finalPrice)
+        console.log(finalPriceFormatted.integerPart, finalPriceFormatted.fractionalPart);
+
+        /* comparsa del prezzo */
+
+        document.getElementById('final-price').classList.remove('d-none');
+
+        const finalPriceOutputInteger = document.getElementById('final-price-integer');
+        finalPriceOutputInteger.innerHTML = `€ ${finalPriceFormatted.integerPart}`;
+
+        const finalPriceOutputFractional = document.getElementById('final-price-fractional');
+        finalPriceOutputFractional.innerHTML = `${finalPriceFormatted.fractionalPart}`;
+
+    }
+
+    if (promoCode.value) {
+        myForm.classList.add('was-validated');
+    } else
+        myForm.classList.add('was-validated');
+    promoCode.classList.remove('was-validated');
+
+
+}, false)
+
 
 
 
@@ -74,10 +74,9 @@ Array.prototype.slice.call(forms)
 
 function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
     let price = selectedWorkPrice * hoursOfWork;
-    const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
     let finalPrice = 0;
 
-    if (promoCodes.includes(promoCode.value)) {
+    if (promoCode) {
         let discountedPrice = price - (price * 0.25);
         console.log(discountedPrice);
         finalPrice = discountedPrice;
@@ -103,3 +102,52 @@ function priceSplitter(floatNumber) {
 
     return { integerPart, fractionalPart };
 }
+
+/* funzione per la validazione del promo-code */
+
+function promoCodeValidator(promoCode) {
+
+    promoCode = document.getElementById('promoCode');
+
+    const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
+
+    if (promoCodes.includes(promoCode.value)) {
+        promoCode.setAttribute('required', true);
+        promoCode.classList.remove('is-invalid')
+        console.log('codice valido')
+        return true;
+    } else if (promoCode.value === '') {
+        console.log('non hai inserito un codice')
+        promoCode.classList.remove('is-invalid')
+        promoCode.classList.remove('was-validated')
+        return false;
+    } else
+        promoCode.setAttribute('required', true);
+    promoCode.classList.add('is-invalid')
+    console.log('codice NON valido')
+    return false;
+
+}
+
+
+
+/* price calculator backup */
+
+// function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
+//     let price = selectedWorkPrice * hoursOfWork;
+//     const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
+//     let finalPrice = 0;
+
+//     if (promoCodes.includes(promoCode.value)) {
+//         let discountedPrice = price - (price * 0.25);
+//         console.log(discountedPrice);
+//         finalPrice = discountedPrice;
+//         return finalPrice
+
+//     } else {
+//         console.log(price);
+//         finalPrice = price;
+//         return finalPrice
+//     }
+
+// }
