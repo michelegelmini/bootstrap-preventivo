@@ -101,15 +101,18 @@ function promoCodeValidator(promoCode) {
     const promoCodes = ['YHDNU32', 'JANJC63', 'PWKCN25', 'SJDPO96', 'POCIE24'];
 
     if (promoCodes.includes(promoCode.value)) {
+        promoCode.classList.add('form-control')
         promoCode.classList.remove('is-invalid')
         return true;
     } else if (promoCode.value == '') {
         promoCode.classList.remove('is-invalid')
-        promoCode.classList.remove('was-validated')
+        promoCode.classList.remove('form-control')
+
         return false;
     } else
         promoCode.classList.add('is-invalid')
-    promoCode.classList.remove('was-validated')
+    promoCode.classList.remove('form-control')
+
     return false;
 
 }
