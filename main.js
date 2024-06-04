@@ -1,7 +1,7 @@
 'use strict'
 
 /* comportamento all'invio del form */
-const myForm = document.querySelector('form:not(.special).needs-validation');
+const myForm = document.querySelector('form');
 
 /* let forms = document.querySelectorAll('.needs-validation') */
 
@@ -42,8 +42,7 @@ myForm.addEventListener('submit', function (event) {
 
         /* suddivisione prezzo in parte integer e float */
 
-        const finalPriceFormatted = priceSplitter(finalPrice)
-        console.log(finalPriceFormatted.integerPart, finalPriceFormatted.fractionalPart);
+        const finalPriceFormatted = priceSplitter(finalPrice);
 
         /* comparsa del prezzo */
 
@@ -62,7 +61,7 @@ myForm.addEventListener('submit', function (event) {
 
 
 
-/* funzione con operazioni aritmetiche e verifica dello sconto */
+/* funzione con operazioni aritmetiche */
 
 function priceCalculator(selectedWorkPrice, promoCode, hoursOfWork) {
     let price = selectedWorkPrice * hoursOfWork;
